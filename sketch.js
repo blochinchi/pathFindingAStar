@@ -1,5 +1,5 @@
-const rows = 15;
-const columns = 15;
+const rows = 25;
+const columns = 25;
 const grid = new Array(columns);
 
 var openSet = [];
@@ -18,7 +18,7 @@ function removeFromArray(arr, elt){
 }
 
 function heuristic(a, b){
-    var d = abs(a.i - b.i) + abs(a.j - a.j);
+    var d= dist(a.i, a.j, b.i, b.j)
     return d;
 }
 
@@ -32,7 +32,7 @@ function Spot(i, j){
     this.previous = undefined;
     this.wall = false;
 
-    if(random(1) < 0.1){
+    if(random(1) < 0.4){
         this.wall = true;
     }
 
@@ -64,6 +64,22 @@ function Spot(i, j){
         if(j < rows-1){
             this.neighbours.push(grid[i][j + 1]);
         }
+
+        if (i > 0 && j > 0){
+            this.neighbours.push(grid[i -1][j - 1]);
+        }
+
+        if (i < columns-1 && j > 0) {
+            this.neighbours.push(grid[i + 1][j - 1]);
+        }
+
+        if (i < columns - 1 && j < rows-1) {
+            this.neighbours.push(grid[i + 1][j + 1]);
+        }
+        
+        if (i > 0 && j < rows-1){
+            this.neighbours.push(grid[i - 1][j + 1]);
+        }
     }
 }
 
@@ -91,7 +107,10 @@ function setup(){
     }
 
     start = grid[0][0];
-    end = grid[columns-1][6];
+    end = grid[columns-1][rows-1];
+    start.wall = false;
+    end.wall = false;
+
     openSet.push(start);
 }
 
@@ -118,24 +137,32 @@ function draw(){
         var neighbours = current.neighbours;
         for(var i = 0; i < neighbours.length; i++){
             var neighbour = neighbours[i];
-            if(!closedSet.includes(neighbour)){
+            if(!closedSet.includes(neighbour) && !neighbour.wall){
                 var tempG= current.g+1;
+                var newPath = false
                 if (openSet.includes(neighbour)) {
                     if(neighbour.g > tempG){
                         neighbour.g = tempG;
+                        newPath = true;
                     }
                 } else{
                     neighbour.g = tempG;
+                    newPath = true
                     openSet.push(neighbour);
                 }
-                neighbour.previous = current;
-                neighbour.h = heuristic(neighbour, end);
-                neighbour.f = neighbour.g + neighbour.h;
+                if(newPath){
+                    neighbour.previous = current;
+                    neighbour.h = heuristic(neighbour, end);
+                    neighbour.f = neighbour.g + neighbour.h;
+                }
             }
         }
 
     } 
     else{
+        console.log("no solution");
+        noLoop();
+        return;
     }
 
     background(0);
@@ -159,6 +186,7 @@ function draw(){
             openSet[i].show(color(0, 255, 0))
         }
     }
+
     path = []
     var temp = current;
     path.push(temp)
@@ -166,7 +194,7 @@ function draw(){
         path.push(temp.previous);
         temp = temp.previous;
     }
-
+        
     for(var i = 0; i < path.length; i++){
         if(i != 0 && i!=path.length-1){
             path[i].show(color(0, 0, 255));
@@ -175,4 +203,6 @@ function draw(){
             path[i].show(color(255, 165, 255))
         }
     }
+
+    
 }
