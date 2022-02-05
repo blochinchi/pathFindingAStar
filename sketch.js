@@ -1,5 +1,5 @@
-const rows = 10;
-const columns = 10;
+const rows = 25;
+const columns = 25;
 const grid = new Array(columns);
 
 var openSet = [];
@@ -83,7 +83,6 @@ function setup(){
     end = grid[columns - 1][rows - 1];
 
     openSet.push(start);
-    closedSet.push(end);
 }
 
 
@@ -96,11 +95,11 @@ function draw(){
             }
         }
 
-        if (neighbour === end) {
+        var current = openSet[winner];
+
+        if (current === end) {
             console.log("done");
         }
-
-        var current = openSet[winner];
 
         removeFromArray(openSet, current);
         closedSet.push(current);
@@ -137,13 +136,10 @@ function draw(){
     }
 
     for(var i = 0; i < closedSet.length; i++){
-        if(i === 0){
-            closedSet[i].show(color(255, 165, 0));
-        }
-        else{
-            closedSet[i].show(color(255, 0, 0));
-        }
+        closedSet[i].show(color(255, 0, 0));
     }
+
+    end.show(color(255, 165, 0))
 
     for(var i = 0; i < openSet.length; i++){
         openSet[i].show(color(0, 255, 0))
