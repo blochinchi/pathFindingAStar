@@ -1,5 +1,5 @@
-const rows = 25;
-const columns = 25;
+const rows = 15;
+const columns = 15;
 const grid = new Array(columns);
 
 var openSet = [];
@@ -7,6 +7,7 @@ var closedSet = [];
 var start;
 var end;
 var w, h;
+var path;
 
 function removeFromArray(arr, elt){
     for(var i = arr.length-1; i >= 0; i--){
@@ -17,7 +18,7 @@ function removeFromArray(arr, elt){
 }
 
 function heuristic(a, b){
-    var d = dist(a.i, a.j, b.i, b.j)
+    var d = abs(a.i - b.i) + abs(a.j - a.j);
     return d;
 }
 
@@ -28,12 +29,22 @@ function Spot(i, j){
     this.g = 0;
     this.h = 0;
     this.neighbours = [];
-    this.show = function(color){
+    this.previous = undefined;
+    this.wall = false;
 
+    if(random(1) < 0.1){
+        this.wall = true;
+    }
+
+    this.show = function(color){
         fill(color);
+        if(this.wall){
+            fill(0);
+        }
         noStroke;
         rect(this.i*w, this.j*h, w-1, h-1)
     }
+
     this.addNeighbours = function(grid){
         var i = this.i;
         var j = this.j;
@@ -80,8 +91,7 @@ function setup(){
     }
 
     start = grid[0][0];
-    end = grid[columns - 1][rows - 1];
-
+    end = grid[columns-1][6];
     openSet.push(start);
 }
 
@@ -99,6 +109,7 @@ function draw(){
 
         if (current === end) {
             console.log("done");
+            noLoop();
         }
 
         removeFromArray(openSet, current);
@@ -117,14 +128,14 @@ function draw(){
                     neighbour.g = tempG;
                     openSet.push(neighbour);
                 }
+                neighbour.previous = current;
+                neighbour.h = heuristic(neighbour, end);
+                neighbour.f = neighbour.g + neighbour.h;
             }
-            neighbour.h = heuristic(neighbour, end);
-            neighbour.f = neighbour.g + neighbour.h;
         }
 
     } 
     else{
-        // console.log("no solution");
     }
 
     background(0);
@@ -136,12 +147,32 @@ function draw(){
     }
 
     for(var i = 0; i < closedSet.length; i++){
-        closedSet[i].show(color(255, 0, 0));
+        if (closedSet[i] !== end) {
+            closedSet[i].show(color(255, 0, 0));
+        }
     }
 
     end.show(color(255, 165, 0))
 
     for(var i = 0; i < openSet.length; i++){
-        openSet[i].show(color(0, 255, 0))
+        if(openSet[i] !== end){
+            openSet[i].show(color(0, 255, 0))
+        }
+    }
+    path = []
+    var temp = current;
+    path.push(temp)
+    while (temp.previous) {
+        path.push(temp.previous);
+        temp = temp.previous;
+    }
+
+    for(var i = 0; i < path.length; i++){
+        if(i != 0 && i!=path.length-1){
+            path[i].show(color(0, 0, 255));
+        }
+        else{
+            path[i].show(color(255, 165, 255))
+        }
     }
 }
