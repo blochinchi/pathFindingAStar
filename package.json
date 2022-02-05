@@ -1,0 +1,14 @@
+{
+  "name": "pathfindingastar",
+  "version": "1.0.0",
+  "description": "a pathfinding program using A star",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bloppai",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
