@@ -1,5 +1,5 @@
-const rows = 5;
-const columns = 5;
+const rows = 10;
+const columns = 10;
 const grid = new Array(columns);
 
 var openSet = [];
@@ -14,6 +14,11 @@ function removeFromArray(arr, elt){
             arr.splice(i, 1);
         }
     }
+}
+
+function heuristic(a, b){
+    var d = dist(a.i, a.j, b.i, b.j)
+    return d;
 }
 
 function Spot(i, j){
@@ -81,30 +86,46 @@ function setup(){
     closedSet.push(end);
 }
 
+
 function draw(){
     if(openSet.length > 0){
         var winner = 0;
         for(var i = 0; i < openSet.length; i++){
             if(openSet[winner].f > openSet[i].f){
                 winner = i;
-                console.log(i);
             }
+        }
+
+        if (neighbour === end) {
+            console.log("done");
         }
 
         var current = openSet[winner];
 
-        if(current === end){
-            console.log("done");
-        }
-
-        console.log(grid);
-
         removeFromArray(openSet, current);
         closedSet.push(current);
 
+        var neighbours = current.neighbours;
+        for(var i = 0; i < neighbours.length; i++){
+            var neighbour = neighbours[i];
+            if(!closedSet.includes(neighbour)){
+                var tempG= current.g+1;
+                if (openSet.includes(neighbour)) {
+                    if(neighbour.g > tempG){
+                        neighbour.g = tempG;
+                    }
+                } else{
+                    neighbour.g = tempG;
+                    openSet.push(neighbour);
+                }
+            }
+            neighbour.h = heuristic(neighbour, end);
+            neighbour.f = neighbour.g + neighbour.h;
+        }
+
     } 
     else{
-        console.log("no solution");
+        // console.log("no solution");
     }
 
     background(0);
@@ -116,7 +137,12 @@ function draw(){
     }
 
     for(var i = 0; i < closedSet.length; i++){
-        closedSet[i].show(color(255, 0, 0));
+        if(i === 0){
+            closedSet[i].show(color(255, 165, 0));
+        }
+        else{
+            closedSet[i].show(color(255, 0, 0));
+        }
     }
 
     for(var i = 0; i < openSet.length; i++){
