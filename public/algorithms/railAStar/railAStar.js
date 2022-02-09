@@ -8,19 +8,6 @@ var end;
 var w, h;
 var path;
 
-function removeFromArray(arr, elt) {
-  for (var i = arr.length - 1; i >= 0; i--) {
-    if (arr[i] === elt) {
-      arr.splice(i, 1);
-    }
-  }
-}
-
-function heuristic(a, b) {
-  var d = dist(a.i, a.j, b.i, b.j);
-  return d;
-}
-
 function Spot(i, j) {
   this.i = i;
   this.j = j;
@@ -82,9 +69,9 @@ function Spot(i, j) {
 }
 
 function setup() {
-  createCanvas(500, 500);
+  var canvas = createCanvas(400, 400);
+  canvas.parent('algoHolder');  
   console.log("A*");
-
   w = width / columns;
   h = height / rows;
 
