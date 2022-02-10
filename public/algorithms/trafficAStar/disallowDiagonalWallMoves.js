@@ -1,40 +1,37 @@
-function DiagonalWallsFix(i, j, nature){
+function diagonalWallsFix(i, j, nature){
     let neighbouringDiagonals = [];
-    let commonNeighbours = [];
 
     quadGrid[i][j].neighbours.forEach(function(neighbour){
         if(neighbour.wall){
-            if(neighbour.i !== i && neighbour.j !== j){
-                neighbouringDiagonals.push(neighbour)
+            let commonNeighbourOne;
+            let commonNeighbourTwo;
+            if(neighbour.j > j && neighbour.i > i){
+                commonNeighbourOne = quadGrid[i][j+1]
+                commonNeighbourTwo = quadGrid[i+1][j]
             }
-        }
-    })
+            else if(neighbour.j > j && neighbour.i < i){
+                commonNeighbourOne = quadGrid[i][j+1]
+                commonNeighbourTwo = quadGrid[i-1][j]
+            }
+            else if(neighbour.j < j && neighbour.i > i){
+                commonNeighbourOne = quadGrid[i][j-1]
+                commonNeighbourTwo = quadGrid[i+1][j]
+            }
+            else if(neighbour.j < j && neighbour.i < i){
+                commonNeighbourOne = quadGrid[i][j-1]
+                commonNeighbourTwo = quadGrid[i-1][j]
+            }
 
-    console.log(neighbouringDiagonals);
-
-    quadGrid[i][j].neighbours.forEach(function(neighbour){
-        neighbouringDiagonals.forEach(function(neighbouringDiagonal){
-            neighbouringDiagonal.neighbours.forEach(function(neighboursNeighbour){
-                if(neighboursNeighbour === neighbour){
-                    commonNeighbours.push(neighbour);
-                }
-            })
-        })
-    })
-
-    // console.log(commonNeighbours);
-
-    commonNeighbours.forEach(function(commonNeighbourOne){
-        commonNeighbours.forEach(function(commonNeighbourTwo){
-            if(commonNeighbourOne !== commonNeighbourTwo){
+            if(commonNeighbourOne && commonNeighbourTwo){
                 if(nature === "add"){
                     commonNeighbourOne.neighbours.push(commonNeighbourTwo);
+                    commonNeighbourTwo.neighbours.push(commonNeighbourOne);
                 }
                 else if(nature === "remove"){
-                    const neighbourToBeRemoved = commonNeighbourOne.neighbours.findIndex(function(neighbourToBeRemoved){return commonNeighbourTwo === neighbourToBeRemoved})
-                    commonNeighbourOne.neighbours.splice(neighbourToBeRemoved, 1);
+                    commonNeighbourOne.neighbours.splice(commonNeighbourOne.neighbours.findIndex(function(neighbourToBeRemoved){return commonNeighbourTwo === neighbourToBeRemoved}), 1);
+                    commonNeighbourTwo.neighbours.splice(commonNeighbourTwo.neighbours.findIndex(function(neighbourToBeRemoved){return commonNeighbourOne === neighbourToBeRemoved}), 1);
                 }
             }
-        })
+        }
     })
 }

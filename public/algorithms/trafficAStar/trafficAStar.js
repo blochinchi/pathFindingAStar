@@ -20,7 +20,12 @@ function Spot(i, j) {
     this.nextJ = j+1;
     this.neighbours = [];
     this.previous = undefined;
-    this.wall = false;
+    if(!this.wall){
+        this.wall = false;
+    }
+    else{
+        this.wall = true;
+    }
     this.show = function (color) {
         fill(color);
         if (this.wall) {
@@ -55,7 +60,9 @@ function Spot(i, j) {
             else if(this.wall === true){
                 this.wall = false;
                 renderEssentials();
-                DiagonalWallsFix(i, j, "add");
+                if(diagonalAllowed){
+                    diagonalWallsFix(i, j, "add");
+                }
                 if(firstStart){
                     startAlgo();
                 }
@@ -63,7 +70,9 @@ function Spot(i, j) {
             else if(start !== quadGrid[i][j] && end !== quadGrid[i][j]){
                 quadGrid[i][j].wall = true
                 renderEssentials();
-                DiagonalWallsFix(i, j, "remove")
+                if(diagonalAllowed){
+                    diagonalWallsFix(i, j, "remove");
+                }
                 if(firstStart){
                     startAlgo();
                 }
@@ -201,7 +210,6 @@ function draw(){
             console.log(path);
             path = [];
             renderEssentials();
-            console.log(quadGrid);
             console.log(openSet);
             console.log(closedSet);
         }

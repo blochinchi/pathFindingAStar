@@ -11,7 +11,7 @@ function startAlgo(){
     }
 }
 
-function restart(){
+function clearBoard(){
     solution = false;
     openSet = [];
     closedSet = [];
