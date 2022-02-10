@@ -1,4 +1,6 @@
 var diagonalAllowed = false;
+let currentButton;
+let randomWall = 0;
 
 $(document).ready(function() {
     $('#customSwitch1').change(function() {
@@ -18,3 +20,50 @@ $(document).ready(function() {
        }
     });
 });
+
+function currentMode(clickedButtonId){
+    if(currentButton){
+        if(currentButton === clickedButtonId){
+            currentButton = null;
+        }
+        else{
+            currentButton = clickedButtonId;
+        }
+    }
+    else{
+        currentButton = clickedButtonId;
+    }
+    buttonAnimation();
+}
+
+function buttonAnimation(){
+    if(currentButton === "wall"){;
+        $("#start").removeClass("btn-primary").addClass("btn-outline-primary");
+        $("#end").removeClass("btn-warning").addClass("btn-outline-warning");
+        $("#wall").toggleClass("btn-outline-dark btn-dark");
+    }
+    else if(currentButton === "start"){;
+        $("#wall").removeClass("btn-dark").addClass("btn-outline-dark");
+        $("#end").removeClass("btn-warning").addClass("btn-outline-warning");
+        $("#start").toggleClass("btn-outline-primary btn-primary");
+    }
+    else if(currentButton === "end"){;
+        $("#start").removeClass("btn-primary").addClass("btn-outline-primary");
+        $("#wall").removeClass("btn-dark").addClass("btn-outline-dark");
+        $("#end").toggleClass("btn-outline-warning btn-warning");
+    }
+    else{
+        $("#start").removeClass("btn-primary").addClass("btn-outline-primary");
+        $("#end").removeClass("btn-warning").addClass("btn-outline-warning");
+        $("#wall").removeClass("btn-dark").addClass("btn-outline-dark");
+    }
+}
+
+function wallVariable(){
+    if($("#wallVariable")[0].value > 100){
+        $("#wallVariable")[0].value = 100;
+    }
+    randomWall = $("#wallVariable")[0].value;
+    console.log(randomWall);
+    addWalls();
+}

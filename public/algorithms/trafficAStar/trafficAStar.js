@@ -20,12 +20,7 @@ function Spot(i, j) {
     this.nextJ = j+1;
     this.neighbours = [];
     this.previous = undefined;
-    if(!this.wall){
-        this.wall = false;
-    }
-    else{
-        this.wall = true;
-    }
+    this.wall = false;
     this.show = function (color) {
         fill(color);
         if (this.wall) {
@@ -41,13 +36,33 @@ function Spot(i, j) {
         let x = w*this.i;
         let y = h*this.j
         if(x < mouseX && y < mouseY && nextX > mouseX && nextY > mouseY){
-            if(!start){
-                start = quadGrid[i][j];
-                start.wall = false;
-                openSet.push(start);
-                renderEssentials();
+            let tempCurrentButton;
+            if(!currentButton){
+                if(!start){
+                    tempCurrentButton = "start";
+                }
+                else if(!end){
+                    tempCurrentButton = "end";
+                }
+                else{ 
+                    tempCurrentButton = "wall";
+                }
             }
-            else if(!end){
+            // console.log(tempCurrentButton);
+            if(currentButton === "start" || tempCurrentButton === "start"){
+                console.log("test?");
+                start = quadGrid[i][j];
+                if(start === end){
+                    start = null
+                }
+                else{
+                    start = quadGrid[i][j];
+                    start.wall = false;
+                    openSet.push(start);
+                    renderEssentials();
+                }
+            }
+            else if(currentButton === "end" || tempCurrentButton === "end"){
                 end = quadGrid[i][j]
                 if(end === start){
                     end = null;
@@ -57,24 +72,28 @@ function Spot(i, j) {
                     renderEssentials();
                 }
             }
-            else if(this.wall === true){
-                this.wall = false;
-                renderEssentials();
-                if(diagonalAllowed){
-                    diagonalWallsFix(i, j, "add");
-                }
-                if(firstStart){
-                    startAlgo();
-                }
-            }
-            else if(start !== quadGrid[i][j] && end !== quadGrid[i][j]){
-                quadGrid[i][j].wall = true
-                renderEssentials();
-                if(diagonalAllowed){
-                    diagonalWallsFix(i, j, "remove");
-                }
-                if(firstStart){
-                    startAlgo();
+            else if(currentButton === "wall" || tempCurrentButton === "wall"){
+                if(quadGrid[i][j] !== start && quadGrid[i][j] !== end){
+                    if(this.wall === true){
+                        this.wall = false;
+                        renderEssentials();
+                        if(diagonalAllowed){
+                            diagonalWallsFix(i, j, "add");
+                        }
+                        if(firstStart){
+                            startAlgo();
+                        }
+                    }
+                    else if(this.wall === false){
+                        quadGrid[i][j].wall = true
+                        renderEssentials();
+                        if(diagonalAllowed){
+                            diagonalWallsFix(i, j, "remove");
+                        }
+                        if(firstStart){
+                            startAlgo();
+                        }
+                    }
                 }
             }
         }

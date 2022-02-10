@@ -3,6 +3,12 @@
         <input type="checkbox" class="custom-control-input diagonal" id="customSwitch1">
         <label class="custom-control-label" for="customSwitch1">Allow Diagonal Movements</label>
     </div>
+    <button type="button" id="start" class="btn btn-outline-primary" onClick="currentMode(this.id);">Start Point</button>
+    <button type="button" id="end" class="btn btn-outline-warning" onClick="currentMode(this.id);">End Point</button>
+    <button type="button" id="wall" class="btn btn-outline-dark" onClick="currentMode(this.id);">Add Wall</button>
+    <input type="number" style="width: 55px" min="0" max="100" onchange="wallVariable();" id="wallVariable" placeholder="%"/>
+    <label for="wallVariable">Generate Random Walls</label>
+    <script src="algorithms/trafficAStar/addWalls.js"></script>
     <script src="algorithms/trafficAStar/removeAllDiagonalNeighbours.js"></script>
     <script src="algorithms/trafficAStar/addNeighbours.js"></script>
     <script src="algorithms/trafficAStar/renderEssentials.js"></script>
