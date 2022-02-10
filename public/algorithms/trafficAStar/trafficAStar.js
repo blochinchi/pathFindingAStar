@@ -79,44 +79,6 @@ function Spot(i, j) {
             }
         }
     }
-
-    this.addNeighbours = function (quadGrid) {
-        var i = this.i;
-        var j = this.j;
-
-        if (i > 0) {
-            this.neighbours.push(quadGrid[i - 1][j]);
-        }
-
-        if (i < blockColumns - 1) {
-            this.neighbours.push(quadGrid[i + 1][j]);
-        }
-
-        if (j > 0) {
-            this.neighbours.push(quadGrid[i][j - 1]);
-        }
-
-        if (j < blockRows - 1) {
-            this.neighbours.push(quadGrid[i][j + 1]);
-        }
-        if(diagonalAllowed){
-            if (i > 0 && j > 0) {
-                this.neighbours.push(quadGrid[i - 1][j - 1]);
-            }
-
-            if (i < blockColumns - 1 && j > 0) {
-                this.neighbours.push(quadGrid[i + 1][j - 1]);
-            }
-
-            if (i < blockColumns - 1 && j < blockRows - 1) {
-                this.neighbours.push(quadGrid[i + 1][j + 1]);
-            }
-
-            if (i > 0 && j < blockRows - 1) {
-                this.neighbours.push(quadGrid[i - 1][j + 1]);
-            }
-        }
-    }
 }
 
 function setup(){
@@ -138,11 +100,7 @@ function setup(){
         }
     }
 
-    for (var i = 0; i < blockColumns; i++) {
-        for (var j = 0; j < blockRows; j++) {
-            quadGrid[i][j].addNeighbours(quadGrid);
-        }
-    }
+    addNeighbours();
 
     renderEssentials();
 }
@@ -167,7 +125,7 @@ function draw(){
                 console.log("done");
                 firstStart = true
                 startAlgorithm = false;
-                console.log(path);
+                console.log(quadGrid);
             }
 
             removeFromArray(openSet, current);
@@ -210,8 +168,7 @@ function draw(){
             console.log(path);
             path = [];
             renderEssentials();
-            console.log(openSet);
-            console.log(closedSet);
+            console.log(quadGrid);
         }
         function renderPath(){ 
             renderEssentials();
