@@ -1,4 +1,8 @@
 <%-include("partials/header")-%>
-<script src="algorithms/trafficAStar/renderEssentials.js"></script>
+    <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input diagonal" id="customSwitch1">
+        <label class="custom-control-label" for="customSwitch1">Allow Diagonal Movements</label>
+    </div>
+    <script src="algorithms/trafficAStar/renderEssentials.js"></script>
     <script src="algorithms/trafficAStar/trafficAStar.js"></script>
 <%-include("partials/footer")-%>

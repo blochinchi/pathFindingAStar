@@ -1,10 +1,12 @@
-function changeButton(){
-    if($("button span").text() === "Start"){
-        $("button").attr("onclick","changeButton(); restart();");
-        $("button span").text("Restart");
-    }
-    else if($("button span").text() === "Restart"){
-        $("button").attr("onclick", "changeButton(); startAlgo();")
-        $("button span").text("Start");
-    }
-}
+var diagonalAllowed = false;
+
+$(document).ready(function() {
+    $('#customSwitch1').change(function() {
+        if($(this).is(":checked")) {
+            diagonalAllowed = true;
+        }
+       else{
+       		diagonalAllowed = false;
+       }
+    });
+});

@@ -1,5 +1,5 @@
 const express = require("express");
-const  bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const app = express();
 app.use(express.static("public"));
