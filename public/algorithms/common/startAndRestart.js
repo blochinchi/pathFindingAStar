@@ -9,6 +9,8 @@ function startAlgo(){
         startAlgorithm = true;
         firstStart = true;
         finalPath = [];
+        removeFromArray(checkpoints, end);
+        checkpoints.push(end);
     }
 }
 
@@ -21,5 +23,7 @@ function clearBoard(){
     firstStart = false;
     start = null;
     end = null;
+    checkpoints = [];
+    finalPath = [];
     setup();
 }

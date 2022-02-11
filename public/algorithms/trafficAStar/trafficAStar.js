@@ -51,29 +51,31 @@ function Spot(i, j) {
                 }
             }
             if(currentButton === "start" || tempCurrentButton === "start"){
-                start = quadGrid[i][j];
-                if(start === end){
-                    start = null
+                if(checkpoints.includes(this)){
+                    removeFromArray(checkpoints, this);
                 }
-                else{
-                    start = quadGrid[i][j];
+                if(this !== end){
+                    start = this;
                     start.wall = false;
                     openSet.push(start);
                     renderEssentials();
                 }
             }
             else if(currentButton === "end" || tempCurrentButton === "end"){
-                if(quadGrid[i][j] !== start){
+                if(this !== start){
                     if(end){
-                        checkpoints.shift();
+                        removeFromArray(checkpoints, end);
                     }
-                    end = quadGrid[i][j];
-                    checkpoints.unshift(end);
-                    renderEssentials();
-                }
+                    if(checkpoints.includes(this)){
+                        removeFromArray(checkpoints, this);
+                    }
+                        end = quadGrid[i][j];
+                        this.wall = false;
+                        renderEssentials();
+                    }
             }
             else if(currentButton === "wall" || tempCurrentButton === "wall"){
-                if(quadGrid[i][j] !== start && quadGrid[i][j] !== end){
+                if(this !== start && this !== end && !checkpoints.includes(this)){
                     if(this.wall === true){
                         this.wall = false;
                         renderEssentials();
@@ -85,7 +87,7 @@ function Spot(i, j) {
                         }
                     }
                     else if(this.wall === false){
-                        quadGrid[i][j].wall = true
+                        this.wall = true
                         renderEssentials();
                         if(diagonalAllowed){
                             diagonalWallsFix(i, j, "remove");
@@ -97,12 +99,15 @@ function Spot(i, j) {
                 }
             }
             else if(currentButton === "checkpoint"){
-                if(quadGrid[i][j] !== start && quadGrid[i][j] !== end){
-                    if(checkpoints.includes(quadGrid[i][j])){
-                        removeFromArray(checkpoints, quadGrid[i][j]);
+                if(this !== start && this !== end && !this.wall){
+                    if(checkpoints.includes(this)){
+                        removeFromArray(checkpoints, this);
                     }
                     else{
-                        checkpoints.push(quadGrid[i][j]);
+                        checkpoints.push(this);
+                    }
+                    if(firstStart){
+                        startAlgo();
                     }
                     renderEssentials();
                 }
@@ -231,6 +236,7 @@ function draw(){
 
             })
         }
+        console.log(finalPath);
         console.log(checkpoints);
     }
 }

@@ -1,14 +1,43 @@
 <%-include("partials/header")-%>
-    <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input diagonal" id="customSwitch1">
-        <label class="custom-control-label" for="customSwitch1">Allow Diagonal Movements</label>
+    <header>
+    <div class="px-3 py-2 bg-light text-black">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <div class="main-btn">
+                <button onclick="startAlgo();" class="btn btn-success float-left"><span>Start</span></button>
+                <button onclick="clearBoard();" class="btn btn-danger"><span>Clear Board</span></button>
+            </div>
+            <div class="custom-control custom-switch flow-cmpts">
+                <input type="checkbox" class="custom-control-input diagonal" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Allow Diagonal Movements</label>
+                <input type="number" style="width: 55px" min="0" max="100" onchange="wallVariable();" id="wallVariable" placeholder="%"/>
+                <label for="wallVariable">Random Walls</label>
+            </div> 
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-black text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"></svg>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small control-btns">
+            <li>
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"></svg>
+                <button type="button" id="start" class="btn btn-outline-primary nav-link" onClick="currentMode(this.id);">Start Point</button>
+            </li>
+            <li>
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"></svg>
+                <button type="button" id="end" class="btn btn-outline-warning nav-link" onClick="currentMode(this.id);">End Point</button>
+            </li>
+            <li>
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"></svg>
+                <button type="button" id="checkpoint" class="btn btn-outline-info nav-link" onClick="currentMode(this.id);">Add Checkpoint</button>
+            </li>
+            <li>
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"></svg>
+                <button type="button" id="wall" class="btn btn-outline-dark nav-link" onClick="currentMode(this.id);">Add Wall</button>
+            </li>
+          </ul>
+      </div>
     </div>
-    <button type="button" id="start" class="btn btn-outline-primary" onClick="currentMode(this.id);">Start Point</button>
-    <button type="button" id="end" class="btn btn-outline-warning" onClick="currentMode(this.id);">End Point</button>
-    <button type="button" id="checkpoint" class="btn btn-outline-info" onClick="currentMode(this.id);">Add Checkpoint</button>
-    <button type="button" id="wall" class="btn btn-outline-dark" onClick="currentMode(this.id);">Add Wall</button>
-    <input type="number" style="width: 55px" min="0" max="100" onchange="wallVariable();" id="wallVariable" placeholder="%"/>
-    <label for="wallVariable">Generate Random Walls</label>
+  </header>
+
     <script src="algorithms/trafficAStar/addWalls.js"></script>
     <script src="algorithms/trafficAStar/removeAllDiagonalNeighbours.js"></script>
     <script src="algorithms/trafficAStar/addNeighbours.js"></script>

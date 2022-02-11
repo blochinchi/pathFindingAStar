@@ -12,7 +12,7 @@ app.get("/", function(req, res){
 
 app.post("/", function(req, res){
     if(req.body.trafficAStar !== undefined){
-        res.redirect("/trafficAStar");     
+        res.redirect("/trafficAStar");
     }
     else if(req.body.railRoadAStar !== undefined){
         res.redirect("/railAStar");
