@@ -8,6 +8,7 @@ function startAlgo(){
         path = [];
         startAlgorithm = true;
         firstStart = true;
+        finalPath = [];
     }
 }
 

@@ -5,6 +5,10 @@ function renderEssentials(){
                 quadGrid[i][j].show(color(255));
             }
         }
+
+        checkpoints.forEach(function(checkpoint){
+            checkpoint.show(color(23, 162, 184));
+        })
         
         if(end){
             end.show(color(255, 165, 0))

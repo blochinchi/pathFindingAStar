@@ -9,6 +9,8 @@ var w, h;
 var path;
 let startAlgorithm = false;
 let firstStart = false;
+let checkpoints = [];
+let finalPath = [];
 
 function Spot(i, j) {
     this.i = i;
@@ -48,9 +50,7 @@ function Spot(i, j) {
                     tempCurrentButton = "wall";
                 }
             }
-            // console.log(tempCurrentButton);
             if(currentButton === "start" || tempCurrentButton === "start"){
-                console.log("test?");
                 start = quadGrid[i][j];
                 if(start === end){
                     start = null
@@ -63,12 +63,12 @@ function Spot(i, j) {
                 }
             }
             else if(currentButton === "end" || tempCurrentButton === "end"){
-                end = quadGrid[i][j]
-                if(end === start){
-                    end = null;
-                }
-                else{
-                    end.wall = false;
+                if(quadGrid[i][j] !== start){
+                    if(end){
+                        checkpoints.shift();
+                    }
+                    end = quadGrid[i][j];
+                    checkpoints.unshift(end);
                     renderEssentials();
                 }
             }
@@ -96,13 +96,24 @@ function Spot(i, j) {
                     }
                 }
             }
+            else if(currentButton === "checkpoint"){
+                if(quadGrid[i][j] !== start && quadGrid[i][j] !== end){
+                    if(checkpoints.includes(quadGrid[i][j])){
+                        removeFromArray(checkpoints, quadGrid[i][j]);
+                    }
+                    else{
+                        checkpoints.push(quadGrid[i][j]);
+                    }
+                    renderEssentials();
+                }
+            }
         }
     }
 }
 
 function setup(){
     blockColumns = Math.round(windowWidth/100);
-    blockRows = Math.round(windowHeight/100)
+    blockRows = Math.round(windowHeight/100);
     var canvas = createCanvas(windowWidth, windowHeight*0.8);
     canvas.position((windowWidth - width) / 2, windowHeight - height);
     canvas.parent('algoHolder');
@@ -144,7 +155,8 @@ function draw(){
                 console.log("done");
                 firstStart = true
                 startAlgorithm = false;
-                console.log(quadGrid);
+                finalPath.shift();
+                finalPath.push(path);
             }
 
             removeFromArray(openSet, current);
@@ -199,21 +211,27 @@ function draw(){
                 path.push(temp.previous);
                 temp = temp.previous;
             }
-                        
-            for(var i = 0; i < path.length; i++){
-                if(i != 0 && i!=path.length-1){
-                    path[i].show(color(0, 255, 0));
-                }
-            }
+            finalPath.shift();
+            finalPath.push(path);
 
-            noFill();
-            stroke(255);
-            beginShape();
-            for(var i = 0; i < path.length; i++){
-                vertex(path[i].i * w + w/2, path[i].j * h + h/2)
-            }
-            endShape();
+            finalPath.forEach(function(eachPath){
+                for(var i = 0; i < eachPath.length; i++){
+                    if(i != 0 && i!=eachPath.length-1){
+                        eachPath[i].show(color(0, 255, 0));
+                    }
+                }
+
+                noFill();
+                stroke(255);
+                beginShape();
+                for(var i = 0; i < eachPath.length; i++){
+                    vertex(eachPath[i].i * w + w/2, eachPath[i].j * h + h/2)
+                }
+                endShape();
+
+            })
         }
+        console.log(checkpoints);
     }
 }
 
