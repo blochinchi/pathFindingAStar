@@ -12,7 +12,7 @@ $(document).ready(function() {
             }
         }
        else{
-               diagonalAllowed = false;
+            diagonalAllowed = false;
             removeAllDiagonalNeighbours();
             if(firstStart){
                 startAlgo();

@@ -3,7 +3,8 @@ function startAlgo(){
         alert("please choose a start and ending point");
     }
     else{
-        openSet = [start];
+        openSet = [];
+        openSet.push(start);
         closedSet = [];
         path = [];
         startAlgorithm = true;
@@ -11,6 +12,12 @@ function startAlgo(){
         finalPath = [];
         removeFromArray(checkpoints, end);
         checkpoints.push(end);
+        for(var i = 0; i < blockColumns; i++){
+            for(var j = 0; j < blockRows; j++){
+                quadGrid[i][j].previous = null;
+            }
+        }
+        aStarAlg();
     }
 }
 
