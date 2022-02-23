@@ -29,8 +29,10 @@ function Spot(i, j) {
     this.wall = false;
     this.show = function (color) {
         fill(color);
-        if (this.wall) {
+        if (this.wall){
+            if(!checkpoints.includes(this)){
             fill(0);
+            }
         }
         noStroke();
         rect(this.i * w, this.j * h, w - 1, h - 1);
