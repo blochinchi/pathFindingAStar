@@ -17,7 +17,4 @@ function renderEssentials(current){
     if(start){
         start.show(color(0, 0, 255))
     }
-    // if(current){
-
-    // }
 }

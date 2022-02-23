@@ -2,6 +2,9 @@ function aStarAlg(){
     if(startAlgorithm){
         let done = false;
         for(var k = 0; k < checkpoints.length; k++){
+            if(!startAlgorithm){
+                break;
+            }
             done = false;
             while(done === false){
                 if(!initialized){
@@ -42,14 +45,19 @@ function aStarAlg(){
                     closedSet.push(current);
 
                     if (current === currentEnd) {
-                        console.log("done")
-                        initialized = false;
-                        firstStart = true
-                        finalPath.push(path);
-                        if(current === end){
+                          if(k+1 === checkpoints.length){
                             startAlgorithm = false;
-                            done = true;
                         }
+                        console.log("done")
+                        addPath(current);
+                        initialized = false;
+                        firstStart = true;
+                        done = true;
+                        finalPath.push(path);
+                        renderPath(current);
+                        // if(k+1 === checkpoints.length){
+                        //     startAlgorithm = false;
+                        // }
                     }
                     else{
                         var neighbours = current.neighbours;
@@ -80,8 +88,6 @@ function aStarAlg(){
                                 }
                             }
                         }
-                    }
-                    if(!done){
                         renderPath(current);
                     }
                 } 
@@ -94,6 +100,7 @@ function aStarAlg(){
                     renderEssentials();
                     console.log(quadGrid);
                     done = true;
+                    initialized = false;
                 }
             }
         }

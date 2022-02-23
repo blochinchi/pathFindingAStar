@@ -62,10 +62,6 @@ function Spot(i, j) {
                     openSet = [];
                     start = this;
                     this.wall = false;
-                    renderEssentials();
-                    if(firstStart){
-                        startAlgo();
-                    }
                 }
 
             }
@@ -79,32 +75,20 @@ function Spot(i, j) {
                     }
                     end = this;
                     this.wall = false;
-                    renderEssentials();
-                    if(firstStart){
-                        startAlgo();
-                    }
                 }
             }
             else if(currentButton === "wall" || tempCurrentButton === "wall"){
                 if(this !== start && this !== end && !checkpoints.includes(this)){
                     if(this.wall === true){
                         this.wall = false;
-                        renderEssentials();
                         if(diagonalAllowed){
                             diagonalWallsFix(i, j, "add");
-                        }
-                        if(firstStart){
-                            startAlgo();
                         }
                     }
                     else if(this.wall === false){
                         this.wall = true
-                        renderEssentials();
                         if(diagonalAllowed){
                             diagonalWallsFix(i, j, "remove");
-                        }
-                        if(firstStart){
-                            startAlgo();
                         }
                     }
                 }
@@ -117,12 +101,12 @@ function Spot(i, j) {
                     else{
                         checkpoints.push(this);
                     }
-                    if(firstStart){
-                        startAlgo();
-                    }
-                    renderEssentials();
                 }
             }
+            if(firstStart){
+                setTimeout(startAlgo, 1);
+            }
+            renderEssentials();
         }
     }
 }
