@@ -30,6 +30,6 @@ app.get("/railAStar", function(req, res){
     res.render("railAStar");
 })
 
-app.listen(3000 || process.env.PORT, function(){
+app.listen(process.env.PORT, function(){
     console.log("BANZAI");
 })
