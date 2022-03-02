@@ -32,6 +32,7 @@ function aStarAlg(){
                         }
                     }
                 }
+
                 if(openSet.length > 0){
                     var chosen = 0;
                     for(var i = 0; i < openSet.length; i++){

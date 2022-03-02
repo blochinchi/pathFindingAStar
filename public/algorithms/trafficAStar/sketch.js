@@ -37,13 +37,13 @@ function Spot(i, j) {
         noStroke();
         rect(this.i * w, this.j * h, w - 1, h - 1);
     };
+    this.nextX = w*this.nextI;
+    this.nextY = h*this.nextJ;
+    this.x = w*this.i;
+    this.y = h*this.j;
 
     this.mousePressed = function(){
-        let nextX = w*this.nextI;
-        let nextY = h*this.nextJ;
-        let x = w*this.i;
-        let y = h*this.j
-        if(x < mouseX && y < mouseY && nextX > mouseX && nextY > mouseY){
+        if(this.x < mouseX && this.y < mouseY && this.nextX > mouseX && this.nextY > mouseY){
             let tempCurrentButton;
             if(!currentButton){
                 if(!start){
@@ -106,7 +106,7 @@ function Spot(i, j) {
                 }
             }
             if(firstStart){
-                setTimeout(startAlgo, 1);
+                setTimeout(startAlgo);
             }
             renderEssentials();
         }
@@ -121,7 +121,7 @@ function setup(){
     canvas.parent('algoHolder');
     w = width/blockColumns;
     h = height/blockRows;
-
+console.log(h, w);
     for(var i = 0; i < blockColumns; i++){
         quadGrid[i] = new Array(blockRows);
     }
