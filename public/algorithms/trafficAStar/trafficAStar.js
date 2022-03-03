@@ -46,19 +46,15 @@ function aStarAlg(){
                     closedSet.push(current);
 
                     if (current === currentEnd) {
-                          if(k+1 === checkpoints.length){
-                            startAlgorithm = false;
-                        }
                         console.log("done")
-                        addPath(current);
                         initialized = false;
                         firstStart = true;
                         done = true;
-                        finalPath.push(path);
-                        renderPath(current);
-                        // if(k+1 === checkpoints.length){
-                        //     startAlgorithm = false;
-                        // }
+                        addPath(current);
+                        if(k+1 === checkpoints.length){
+                            startAlgorithm = false;
+                            renderPath();
+                        }
                     }
                     else{
                         var neighbours = current.neighbours;
@@ -89,7 +85,6 @@ function aStarAlg(){
                                 }
                             }
                         }
-                        renderPath(current);
                     }
                 } 
                 else{
