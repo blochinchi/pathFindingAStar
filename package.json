@@ -1,6 +1,6 @@
 {
   "name": "pathfindingastar",
-  "version": "1.0.0",
+  "version": "0.2.67",
   "description": "A pathfinding website based ona the A star (A*) algorithm",
   "main": "server.js",
   "scripts": {
