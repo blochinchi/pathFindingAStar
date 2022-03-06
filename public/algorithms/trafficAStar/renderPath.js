@@ -1,12 +1,14 @@
-function renderPath(){ 
+function renderPath(status){ 
     var tempArray = [];
     renderEssentials();
-    finalPath.forEach(each2dPath => {
-        each2dPath.forEach(eachPath => {
-            tempArray.push(eachPath);
+    console.log(finalPath);
+    if(status === "pathComplete"){
+        tempArray = finalPath[finalPath.length-1];
+        tempArray.forEach(eachNewPath => {
+            finalPath.push(eachNewPath);
         })
-    })
-    finalPath = tempArray
+        removeFromArray(finalPath, finalPath[finalPath.length - tempArray.length -1])
+    }
     for(var i = 0; i < finalPath.length; i++){
         if(finalPath[i] !== end && finalPath[i] !== start && !checkpoints.includes(finalPath[i])){
             finalPath[i].show(color(0, 255, 0));
@@ -15,21 +17,32 @@ function renderPath(){
     renderLine();
 }
 
-function addPath(current){
+function addPath(current, foundCurrentEnd){
     path = []
     var temp = current;
-    path.push(temp)
-    while (temp.previous.previous) {
-        path.push(temp.previous);
+    while (temp.previous) {
+        path.push(temp);
         temp = temp.previous;
     }
-   const pathIndexes = path.length-1
+    path.push(temp);
+    const pathIndexes = path.length-1
     for(var i = pathIndexes; i >= 0; i--){
         path.push(path[i]);
         path.splice((pathIndexes-(pathIndexes-i)), 1);
     }
-    finalPath.push(path);
-    // console.log(path);
+    if(foundCurrentEnd){
+        finalPath.push(path);
+        renderPath("pathComplete");
+    } else{
+        if(finalPath.length > 0){
+            renderPath();
+        }
+        for(var i = 0; i < path.length; i++){
+            if(path[i] !== end && path[i] !== start && !checkpoints.includes(path[i])){
+                path[i].show(color(0, 255, 0));
+            }
+        }
+    }
 }
 
 function renderLine(){

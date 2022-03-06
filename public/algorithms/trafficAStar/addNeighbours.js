@@ -34,8 +34,13 @@ function addNeighbours(){
                 if (i > 0 && j < blockRows - 1) {
                     quadGrid[i][j].neighbours.push(quadGrid[i - 1][j + 1]);
                 }
-                diagonalWallsFix(i, j, "remove");
             }
         }
     }
+    for(var i = 0; i < blockColumns; i++){
+        for(var j = 0; j < blockRows; j++){
+            diagonalWallsFix(i, j, "remove");
+        }
+    }
 }
+

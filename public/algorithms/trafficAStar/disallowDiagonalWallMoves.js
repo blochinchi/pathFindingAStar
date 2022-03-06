@@ -1,6 +1,4 @@
 function diagonalWallsFix(i, j, nature){
-    let neighbouringDiagonals = [];
-
     quadGrid[i][j].neighbours.forEach(function(neighbour){
         if(neighbour.wall){
             let commonNeighbourOne;

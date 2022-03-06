@@ -121,7 +121,6 @@ function setup(){
     canvas.parent('algoHolder');
     w = width/blockColumns;
     h = height/blockRows;
-console.log(h, w);
     for(var i = 0; i < blockColumns; i++){
         quadGrid[i] = new Array(blockRows);
     }
