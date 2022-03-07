@@ -1,5 +1,4 @@
 function aStarAlg() {
-	done = false;
 	if (!initialized) {
 		console.log("initialized");
 		openSet = [];
@@ -43,7 +42,6 @@ function aStarAlg() {
 			console.log("done");
 			initialized = false;
 			firstStart = true;
-			done = true;
 			addPath(current, true);
 			counter = counter + 1;
 			if (currentEnd === end) {
@@ -55,10 +53,7 @@ function aStarAlg() {
 			for (var i = 0; i < neighbours.length; i++) {
 				var neighbour = neighbours[i];
 				if (!closedSet.includes(neighbour) && !neighbour.wall) {
-					if (
-						current.i !== neighbour.i &&
-						current.j !== neighbour.j
-					) {
+					if (current.i !== neighbour.i && current.j !== neighbour.j) {
 						var tempG = current.g + Math.sqrt(2);
 					} else {
 						var tempG = current.g + 1;
@@ -91,7 +86,6 @@ function aStarAlg() {
 		path = [];
 		renderEssentials();
 		console.log(quadGrid);
-		done = true;
 		initialized = false;
 		counter = 0;
 	}
