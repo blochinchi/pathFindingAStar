@@ -9,6 +9,13 @@ function renderPath(status) {
 		});
 		removeFromArray(finalPath, finalPath[finalPath.length - tempArray.length - 1]);
 	}
+	if (startAlgorithm) {
+		for (var i = 0; i < openSet.length; i++) {
+			if (!finalPath.includes(openSet[i])) {
+				openSet[i].show(color(173, 216, 230));
+			}
+		}
+	}
 	for (var i = 0; i < finalPath.length; i++) {
 		if (finalPath[i] !== end && finalPath[i] !== start && !checkpoints.includes(finalPath[i])) {
 			finalPath[i].show(color(0, 255, 0));
@@ -26,6 +33,13 @@ function renderPath(status) {
 }
 
 function addPath(current, foundCurrentEnd) {
+	if (checkpoints.length === 1) {
+		for (var i = 0; i < openSet.length; i++) {
+			if (!finalPath.includes(openSet[i])) {
+				openSet[i].show(color(173, 216, 230));
+			}
+		}
+	}
 	path = [];
 	var temp = current;
 	while (temp.previous) {

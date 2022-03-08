@@ -17,19 +17,19 @@ function aStarAlg() {
 		if (current === currentEnd) {
 			console.log("done");
 			initialized = false;
-			addPath(current, true);
 			counter = counter + 1;
 			if (currentEnd === end) {
 				startAlgorithm = false;
 				counter = 0;
 			}
+			addPath(current, true);
 		} else {
 			var neighbours = current.neighbours;
 			for (var i = 0; i < neighbours.length; i++) {
 				var neighbour = neighbours[i];
 				if (!closedSet.includes(neighbour) && !neighbour.wall) {
 					if (current.i !== neighbour.i && current.j !== neighbour.j) {
-						var tempG = current.g + Math.sqrt(2);
+						var tempG = current.g + 1.4142135623730951;
 					} else {
 						var tempG = current.g + 1;
 					}

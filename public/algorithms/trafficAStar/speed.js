@@ -6,4 +6,5 @@ function changeSpeed(speed) {
 	}
 	algoSpeed = speed;
 	frameRate(fr);
+	startAlgo();
 }

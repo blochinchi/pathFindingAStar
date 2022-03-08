@@ -84,27 +84,30 @@ function Spot(i, j) {
 					this.wall = false;
 				}
 			} else if (currentButton === "wall" || tempCurrentButton === "wall") {
-				if (this !== start && this !== end && !checkpoints.includes(this)) {
-					if (this.wall === true) {
-						this.wall = false;
-						if (diagonalAllowed) {
-							diagonalWallsFix(i, j, "add");
-						}
-					} else if (this.wall === false) {
-						this.wall = true;
-						if (diagonalAllowed) {
-							diagonalWallsFix(i, j, "remove");
-						}
+				if (this === start || this === end || checkpoints.includes(this)) {
+					return;
+				}
+				if (this.wall === true) {
+					this.wall = false;
+					if (diagonalAllowed) {
+						diagonalWallsFix(i, j, "add");
+					}
+				} else if (this.wall === false) {
+					this.wall = true;
+					if (diagonalAllowed) {
+						diagonalWallsFix(i, j, "remove");
 					}
 				}
 			} else if (currentButton === "checkpoint") {
-				if (this !== start && this !== end && !this.wall) {
-					if (checkpoints.includes(this)) {
-						removeFromArray(checkpoints, this);
-					} else {
-						checkpoints.push(this);
-					}
+				if (this === start || this === end) {
+					return;
 				}
+				if (checkpoints.includes(this)) {
+					removeFromArray(checkpoints, this);
+				} else {
+					checkpoints.push(this);
+				}
+				this.wall = false;
 			}
 			if (firstStart) {
 				startAlgo();
