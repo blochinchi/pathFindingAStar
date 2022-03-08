@@ -1,16 +1,18 @@
 function startAlgo() {
-	if (!start || !end) {
+	firstStart = true;
+	if ((!start || !end) && !firstStart) {
 		alert("please choose a start and ending point");
-	} else {
+	} else if (start && end && firstStart) {
+		// noLoop();
 		console.log("restarted");
 		openSet = [];
 		openSet.push(start);
 		closedSet = [];
 		path = [];
 		startAlgorithm = true;
-		firstStart = true;
 		finalPath = [];
 		counter = 0;
+		initialized = false;
 		removeFromArray(checkpoints, end);
 		checkpoints.push(end);
 		for (var i = 0; i < blockColumns; i++) {
@@ -33,5 +35,6 @@ function clearBoard() {
 	end = null;
 	checkpoints = [];
 	finalPath = [];
+	counter = 0;
 	setup();
 }

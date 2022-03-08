@@ -16,6 +16,8 @@ let currentEnd;
 let currentStart;
 let current;
 let counter = 0;
+let fr = 60;
+let algoSpeed = "medium";
 
 function Spot(i, j) {
 	this.i = i;
@@ -56,7 +58,10 @@ function Spot(i, j) {
 				}
 			}
 			if (currentButton === "start" || tempCurrentButton === "start") {
-				if (this !== end) {
+				if (this === start) {
+					start = null;
+					removeFromArray(checkpoints, this);
+				} else if (this !== end) {
 					if (checkpoints.includes(this)) {
 						removeFromArray(checkpoints, this);
 					}
@@ -65,7 +70,10 @@ function Spot(i, j) {
 					this.wall = false;
 				}
 			} else if (currentButton === "end" || tempCurrentButton === "end") {
-				if (this !== start) {
+				if (this === end) {
+					end = null;
+					removeFromArray(checkpoints, this);
+				} else if (this !== start) {
 					if (end) {
 						removeFromArray(checkpoints, end);
 					}
@@ -99,7 +107,7 @@ function Spot(i, j) {
 				}
 			}
 			if (firstStart) {
-				setTimeout(startAlgo);
+				startAlgo();
 			}
 			renderEssentials();
 		}

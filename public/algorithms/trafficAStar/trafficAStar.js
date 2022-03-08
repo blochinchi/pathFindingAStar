@@ -1,30 +1,6 @@
 function aStarAlg() {
 	if (!initialized) {
-		console.log("initialized");
-		openSet = [];
-		path = [];
-		closedSet = [];
-		if (counter === 0) {
-			currentStart = start;
-			currentEnd = checkpoints[counter];
-		} else if (counter < checkpoints.length) {
-			currentStart = checkpoints[counter - 1];
-			currentEnd = checkpoints[counter];
-		} else {
-			return null;
-		}
-		openSet.push(currentStart);
-		initialized = true;
-		if (checkpoints.length > 1) {
-			for (var i = 0; i < blockColumns; i++) {
-				for (var j = 0; j < blockRows; j++) {
-					quadGrid[i][j].f = 0;
-					quadGrid[i][j].g = 0;
-					quadGrid[i][j].h = 0;
-					quadGrid[i][j].previous = null;
-				}
-			}
-		}
+		initialize();
 	}
 	if (openSet.length > 0) {
 		var chosen = 0;
@@ -41,7 +17,6 @@ function aStarAlg() {
 		if (current === currentEnd) {
 			console.log("done");
 			initialized = false;
-			firstStart = true;
 			addPath(current, true);
 			counter = counter + 1;
 			if (currentEnd === end) {
@@ -80,7 +55,6 @@ function aStarAlg() {
 		}
 	} else {
 		console.log("no solution");
-		firstStart = true;
 		startAlgorithm = false;
 		console.log(path);
 		path = [];
@@ -88,5 +62,33 @@ function aStarAlg() {
 		console.log(quadGrid);
 		initialized = false;
 		counter = 0;
+	}
+}
+
+function initialize() {
+	console.log("initialized");
+	openSet = [];
+	path = [];
+	closedSet = [];
+	if (counter === 0) {
+		currentStart = start;
+		currentEnd = checkpoints[counter];
+	} else if (counter < checkpoints.length) {
+		currentStart = checkpoints[counter - 1];
+		currentEnd = checkpoints[counter];
+	} else {
+		return null;
+	}
+	openSet.push(currentStart);
+	initialized = true;
+	if (checkpoints.length > 1) {
+		for (var i = 0; i < blockColumns; i++) {
+			for (var j = 0; j < blockRows; j++) {
+				quadGrid[i][j].f = 0;
+				quadGrid[i][j].g = 0;
+				quadGrid[i][j].h = 0;
+				quadGrid[i][j].previous = null;
+			}
+		}
 	}
 }

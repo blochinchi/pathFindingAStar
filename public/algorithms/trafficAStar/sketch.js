@@ -1,4 +1,5 @@
 function setup() {
+	frameRate(fr);
 	blockColumns = Math.round(windowWidth / 100);
 	blockRows = Math.round(windowHeight / 100);
 	var canvas = createCanvas(windowWidth, windowHeight * 0.8);
@@ -26,7 +27,11 @@ function draw() {
 	line(0, 0, windowWidth, 0);
 	stroke(0);
 	strokeWeight(2);
-	if (startAlgorithm) {
+	if (algoSpeed === "instant") {
+		while (startAlgorithm) {
+			aStarAlg();
+		}
+	} else if (startAlgorithm) {
 		aStarAlg();
 	}
 }
