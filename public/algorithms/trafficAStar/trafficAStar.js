@@ -21,6 +21,7 @@ function aStarAlg() {
 			if (currentEnd === end) {
 				startAlgorithm = false;
 				counter = 0;
+				algoSpeed = "instant";
 			}
 			addPath(current, true);
 		} else {
@@ -62,6 +63,7 @@ function aStarAlg() {
 		console.log(quadGrid);
 		initialized = false;
 		counter = 0;
+		algoSpeed = "instant";
 	}
 }
 
