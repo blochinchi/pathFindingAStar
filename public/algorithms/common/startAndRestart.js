@@ -1,9 +1,6 @@
 function startAlgo() {
 	firstStart = true;
-	if ((!start || !end) && !firstStart) {
-		alert("please choose a start and ending point");
-	} else if (start && end && firstStart) {
-		// noLoop();
+	if (start && end && firstStart) {
 		console.log("restarted");
 		openSet = [];
 		openSet.push(start);

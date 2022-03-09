@@ -61,6 +61,7 @@ function Spot(i, j) {
 				if (this === start) {
 					start = null;
 					removeFromArray(checkpoints, this);
+					startAlgorithm = false;
 				} else if (this !== end) {
 					if (checkpoints.includes(this)) {
 						removeFromArray(checkpoints, this);
@@ -73,6 +74,7 @@ function Spot(i, j) {
 				if (this === end) {
 					end = null;
 					removeFromArray(checkpoints, this);
+					startAlgorithm = false;
 				} else if (this !== start) {
 					if (end) {
 						removeFromArray(checkpoints, end);
