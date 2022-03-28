@@ -95,6 +95,19 @@ function Spot(i, j) {
 			}
 			renderEssentials();
 			currentMouseLocation = this;
+			if (currentMouseLocation === this) {
+				let dd = 10;
+				if (tempCurrentButton === "start" || currentButton === "start") {
+					fill(0, 0, 255);
+				} else if (tempCurrentButton === "end" || currentButton === "end") {
+					fill(255, 165, 0);
+				} else if (tempCurrentButton === "wall" || currentButton === "wall") {
+					fill(0);
+				} else if (tempCurrentButton === "checkpoint" || currentButton === "checkpoint") {
+					fill(23, 162, 184);
+				}
+				rect(this.i * w - dd / 2, this.j * h - dd / 2, w + dd, h + dd);
+			}
 		}
 	};
 }

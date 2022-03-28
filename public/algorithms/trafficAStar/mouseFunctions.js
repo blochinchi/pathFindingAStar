@@ -19,5 +19,6 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
+	currentMouseLocation.show(255);
 	currentMouseLocation = null;
 }
