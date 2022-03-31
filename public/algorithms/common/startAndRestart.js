@@ -1,14 +1,19 @@
-function startAlgo() {
+function startAlgo(count) {
 	firstStart = true;
 	if (start && end && firstStart) {
+		if (!count) {
+			count = 0;
+		}
 		console.log("started");
 		openSet = [];
 		openSet.push(start);
 		closedSet = [];
 		path = [];
 		startAlgorithm = true;
-		finalPath = [];
-		counter = 0;
+		if (!count) {
+			finalPath = [];
+		}
+		counter = count;
 		initialized = false;
 		removeFromArray(checkpoints, end);
 		checkpoints.push(end);

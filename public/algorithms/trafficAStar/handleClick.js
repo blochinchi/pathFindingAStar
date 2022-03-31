@@ -54,6 +54,11 @@ function handleClick() {
 				if (diagonalAllowed) {
 					diagonalWallsFix(i, j, "remove");
 				}
+				if (!finalPath.includes(quadGrid[i][j])) {
+					quadGrid[i][j].show(0);
+					mouseLocation = quadGrid[i][j];
+					return;
+				}
 			}
 		} else if (currentButton === "checkpoint") {
 			if (quadGrid[i][j] === start || quadGrid[i][j] === end) {
@@ -63,6 +68,18 @@ function handleClick() {
 				removeFromArray(checkpoints, quadGrid[i][j]);
 			} else {
 				checkpoints.push(quadGrid[i][j]);
+				if (firstStart && checkpoints.length >= 3 && !startAlgorithm) {
+					startAlgo(checkpoints.length - 2);
+					for (var k = finalPath.length - 1; k >= 0; k--) {
+						if (finalPath[k] === checkpoints[checkpoints.length - 3]) {
+							finalPath.splice(k, finalPath.length - 1 - k);
+							break;
+						}
+					}
+					renderEssentials();
+					mouseLocation = quadGrid[i][j];
+					return;
+				}
 			}
 			quadGrid[i][j].wall = false;
 		}
