@@ -1,12 +1,10 @@
 function setup() {
 	frameRate(fr);
-	blockColumns = Math.round(windowWidth / 100);
-	blockRows = Math.round(windowHeight / 100);
-	var canvas = createCanvas(windowWidth, windowHeight * 0.8);
+	// blockColumns = Math.floor(window.innerWidth / w);
+	// blockRows = Math.floor((window.innerHeight * 0.8) / h);
+	var canvas = createCanvas(blockColumns * w, blockRows * h);
 	canvas.position((windowWidth - width) / 2, windowHeight - height);
 	canvas.parent("algoHolder");
-	w = width / blockColumns;
-	h = height / blockRows;
 	for (var i = 0; i < blockColumns; i++) {
 		quadGrid[i] = new Array(blockRows);
 	}
