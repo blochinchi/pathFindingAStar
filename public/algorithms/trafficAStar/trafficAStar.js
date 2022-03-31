@@ -15,10 +15,10 @@ function aStarAlg() {
 		closedSet.push(current);
 
 		if (current === currentEnd) {
-			console.log("done");
 			initialized = false;
 			counter = counter + 1;
 			if (currentEnd === end) {
+				console.log("done");
 				startAlgorithm = false;
 				counter = 0;
 			}
