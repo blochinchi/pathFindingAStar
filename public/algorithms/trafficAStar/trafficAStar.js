@@ -5,7 +5,7 @@ function aStarAlg() {
 	if (openSet.length > 0) {
 		var chosen = 0;
 		for (var i = 0; i < openSet.length; i++) {
-			if (openSet[chosen].f > openSet[i].f) {
+			if (openSet[chosen].h > openSet[i].h) {
 				chosen = i;
 			}
 		}
@@ -21,7 +21,6 @@ function aStarAlg() {
 			if (currentEnd === end) {
 				startAlgorithm = false;
 				counter = 0;
-				algoSpeed = "instant";
 			}
 			addPath(current, true);
 		} else {
@@ -63,7 +62,6 @@ function aStarAlg() {
 		console.log(quadGrid);
 		initialized = false;
 		counter = 0;
-		algoSpeed = "instant";
 	}
 }
 

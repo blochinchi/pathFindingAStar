@@ -1,7 +1,6 @@
 function renderPath(status) {
 	var tempArray = [];
 	renderEssentials();
-	console.log(finalPath);
 	if (status === "pathComplete") {
 		tempArray = finalPath[finalPath.length - 1];
 		tempArray.forEach(eachNewPath => {

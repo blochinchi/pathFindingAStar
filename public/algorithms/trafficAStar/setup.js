@@ -19,4 +19,3 @@ var current;
 var counter = 0;
 var fr = 60;
 var algoSpeed = "medium";
-var currentMouseLocation;

@@ -1,9 +1,9 @@
 function Spot(i, j) {
 	this.i = i;
 	this.j = j;
-	this.f = 0;
 	this.g = 0;
 	this.h = 0;
+	this.f = this.g + this.h;
 	this.nextI = i + 1;
 	this.nextJ = j + 1;
 	this.neighbours = [];
@@ -17,7 +17,7 @@ function Spot(i, j) {
 			}
 		}
 		noStroke();
-		rect(this.i * w, this.j * h, w - 1, h - 1);
+		rect(i * w + 1, j * h + 1, h - 1, w - 1);
 	};
 	this.nextX = w * this.nextI;
 	this.nextY = h * this.nextJ;
@@ -25,7 +25,7 @@ function Spot(i, j) {
 	this.y = h * this.j;
 
 	this.mousePressed = function () {
-		if (this.x < mouseX && this.y < mouseY && this.nextX > mouseX && this.nextY > mouseY && this !== currentMouseLocation) {
+		if (this.x < mouseX && this.y < mouseY && this.nextX > mouseX && this.nextY > mouseY) {
 			let tempCurrentButton;
 			if (!currentButton) {
 				if (!start) {
@@ -94,20 +94,6 @@ function Spot(i, j) {
 				startAlgo();
 			}
 			renderEssentials();
-			currentMouseLocation = this;
-			if (currentMouseLocation === this) {
-				let dd = 10;
-				if (tempCurrentButton === "start" || currentButton === "start") {
-					fill(0, 0, 255);
-				} else if (tempCurrentButton === "end" || currentButton === "end") {
-					fill(255, 165, 0);
-				} else if (tempCurrentButton === "wall" || currentButton === "wall") {
-					fill(0);
-				} else if (tempCurrentButton === "checkpoint" || currentButton === "checkpoint") {
-					fill(23, 162, 184);
-				}
-				rect(this.i * w - dd / 2, this.j * h - dd / 2, w + dd, h + dd);
-			}
 		}
 	};
 }
