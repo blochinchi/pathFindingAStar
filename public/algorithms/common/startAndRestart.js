@@ -1,7 +1,7 @@
 function startAlgo() {
 	firstStart = true;
 	if (start && end && firstStart) {
-		console.log("restarted");
+		console.log("started");
 		openSet = [];
 		openSet.push(start);
 		closedSet = [];
