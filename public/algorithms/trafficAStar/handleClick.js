@@ -63,9 +63,6 @@ function handleClick() {
 				removeFromArray(checkpoints, quadGrid[i][j]);
 			} else {
 				checkpoints.push(quadGrid[i][j]);
-				if (counter === 0 && firstStart) {
-					test();
-				}
 			}
 			quadGrid[i][j].wall = false;
 		}
