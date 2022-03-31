@@ -66,6 +66,7 @@ function aStarAlg() {
 }
 
 function initialize() {
+	console.log("initialized");
 	openSet = [];
 	path = [];
 	closedSet = [];

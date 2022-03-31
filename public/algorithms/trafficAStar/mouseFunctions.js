@@ -1,5 +1,12 @@
 function mousePressed() {
-	if (mouseY > 0) {
-		handleClick();
-	}
+	handleClick();
+}
+
+function mouseDragged() {
+	handleClick();
+	return false;
+}
+
+function mouseReleased() {
+	mouseLocation = null;
 }
