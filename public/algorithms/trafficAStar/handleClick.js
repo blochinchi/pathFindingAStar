@@ -54,11 +54,6 @@ function handleClick() {
 				if (diagonalAllowed) {
 					diagonalWallsFix(i, j, "remove");
 				}
-				if (!finalPath.includes(quadGrid[i][j])) {
-					quadGrid[i][j].show(0);
-					mouseLocation = quadGrid[i][j];
-					return;
-				}
 			}
 		} else if (currentButton === "checkpoint") {
 			if (quadGrid[i][j] === start || quadGrid[i][j] === end) {
