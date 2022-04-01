@@ -5,7 +5,7 @@ function aStarAlg() {
 	if (openSet.length > 0) {
 		var chosen = 0;
 		for (var i = 0; i < openSet.length; i++) {
-			if (openSet[chosen].h > openSet[i].h) {
+			if (openSet[chosen].h >= openSet[i].h && openSet[chosen].f >= openSet[i].f) {
 				chosen = i;
 			}
 		}
