@@ -38,5 +38,13 @@ function clearBoard() {
 	checkpoints = [];
 	finalPath = [];
 	counter = 0;
-	setup();
+	renderEssentials();
+	for (var i = 0; i < blockColumns; i++) {
+		for (var j = 0; j < blockRows; j++) {
+			quadGrid[i][j].f = 0;
+			quadGrid[i][j].g = 0;
+			quadGrid[i][j].h = 0;
+			quadGrid[i][j].previous = null;
+		}
+	}
 }

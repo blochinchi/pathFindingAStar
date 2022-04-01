@@ -64,14 +64,7 @@ function handleClick() {
 			} else {
 				checkpoints.push(quadGrid[i][j]);
 				if (firstStart && checkpoints.length >= 3 && !startAlgorithm) {
-					startAlgo(checkpoints.length - 2);
-					for (var k = finalPath.length - 1; k >= 0; k--) {
-						if (finalPath[k] === checkpoints[checkpoints.length - 3]) {
-							finalPath.splice(k, finalPath.length - 1 - k);
-							break;
-						}
-					}
-					renderEssentials();
+					midPointStart(checkpoints.length - 2);
 					mouseLocation = quadGrid[i][j];
 					return;
 				}
