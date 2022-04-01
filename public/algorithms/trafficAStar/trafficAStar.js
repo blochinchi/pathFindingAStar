@@ -17,10 +17,16 @@ function aStarAlg() {
 		if (current === currentEnd) {
 			initialized = false;
 			counter = counter + 1;
-			if (currentEnd === end) {
+			if (currentEnd === checkpoints[countLimit - 1]) {
 				console.log("done");
 				startAlgorithm = false;
 				counter = 0;
+				if (countLimit !== checkpoints.length) {
+					addPath(current, true, true);
+					countLimit = null;
+					return;
+				}
+				countLimit = null;
 			}
 			addPath(current, true);
 		} else {
@@ -62,10 +68,15 @@ function aStarAlg() {
 		console.log(quadGrid);
 		initialized = false;
 		counter = 0;
+		countLimit = null;
 	}
 }
 
 function initialize() {
+	if (!countLimit) {
+		countLimit = checkpoints.length;
+	}
+	console.log(counter, countLimit);
 	console.log("initialized");
 	openSet = [];
 	path = [];
@@ -73,7 +84,7 @@ function initialize() {
 	if (counter === 0) {
 		currentStart = start;
 		currentEnd = checkpoints[counter];
-	} else if (counter < checkpoints.length) {
+	} else if (counter < countLimit) {
 		currentStart = checkpoints[counter - 1];
 		currentEnd = checkpoints[counter];
 	} else {

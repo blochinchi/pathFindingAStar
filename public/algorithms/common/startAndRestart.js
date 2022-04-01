@@ -1,8 +1,14 @@
-function startAlgo(count) {
+function startAlgo(count, limitValue) {
 	firstStart = true;
 	if (start && end && firstStart) {
 		if (!count) {
+			if (count !== 0) {
+				finalPath = [];
+			}
 			count = 0;
+		}
+		if (!limitValue) {
+			countLimit = null;
 		}
 		console.log("started");
 		openSet = [];
@@ -10,9 +16,6 @@ function startAlgo(count) {
 		closedSet = [];
 		path = [];
 		startAlgorithm = true;
-		if (!count) {
-			finalPath = [];
-		}
 		counter = count;
 		initialized = false;
 		removeFromArray(checkpoints, end);
@@ -38,6 +41,7 @@ function clearBoard() {
 	checkpoints = [];
 	finalPath = [];
 	counter = 0;
+	limit = null;
 	renderEssentials();
 	for (var i = 0; i < blockColumns; i++) {
 		for (var j = 0; j < blockRows; j++) {

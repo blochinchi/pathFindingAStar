@@ -1,13 +1,6 @@
 function renderPath(status) {
 	var tempArray = [];
 	renderEssentials();
-	if (status === "pathComplete") {
-		tempArray = finalPath[finalPath.length - 1];
-		tempArray.forEach(eachNewPath => {
-			finalPath.push(eachNewPath);
-		});
-		removeFromArray(finalPath, finalPath[finalPath.length - tempArray.length - 1]);
-	}
 	if (startAlgorithm) {
 		for (var i = 0; i < openSet.length; i++) {
 			if (!finalPath.includes(openSet[i]) && !checkpoints.includes(openSet[i])) {
@@ -31,7 +24,7 @@ function renderPath(status) {
 	}
 }
 
-function addPath(current, foundCurrentEnd) {
+function addPath(current, foundCurrentEnd, midPoint) {
 	for (var i = 0; i < openSet.length; i++) {
 		if (!finalPath.includes(openSet[i]) && !checkpoints.includes(openSet[i])) {
 			openSet[i].show(color(173, 216, 230));
@@ -51,8 +44,12 @@ function addPath(current, foundCurrentEnd) {
 		path.splice(pathIndexes - (pathIndexes - i), 1);
 	}
 	if (foundCurrentEnd) {
-		finalPath.push(path);
-		renderPath("pathComplete");
+		if (!midPoint) {
+			finalPath.push(...path);
+		} else {
+			finalPath.splice(0, 0, ...path);
+		}
+		renderPath(true);
 	} else {
 		if (finalPath.length > 0) {
 			renderPath();
