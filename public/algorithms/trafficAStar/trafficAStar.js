@@ -79,7 +79,6 @@ function initialize() {
 	} else {
 		return null;
 	}
-	// console.log(counter, currentStart, currentEnd);
 	openSet.push(currentStart);
 	initialized = true;
 	if (checkpoints.length > 1) {

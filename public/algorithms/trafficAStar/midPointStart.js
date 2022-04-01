@@ -1,10 +1,9 @@
-function midPointStart(location) {
-	startAlgo(location);
-	for (var k = finalPath.length - 1; k >= 0; k--) {
-		if (finalPath[k] === checkpoints[location - 1]) {
-			finalPath.splice(k, finalPath.length - 1 - k);
+function midPointStart(newStartCount, removeFrom) {
+	for (var i = finalPath.length - 1; i >= 0; i--) {
+		if (finalPath[i] === removeFrom) {
+			finalPath.splice(i, finalPath.length - i);
 			break;
 		}
 	}
-	renderEssentials();
+	startAlgo(newStartCount);
 }

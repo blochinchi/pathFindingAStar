@@ -24,6 +24,11 @@ function handleClick() {
 				openSet = [];
 				start = quadGrid[i][j];
 				quadGrid[i][j].wall = false;
+				if (firstStart && !startAlgorithm && checkpoints.length > 1) {
+					mouseLocation = quadGrid[i][j];
+					midPointStart(checkpoints.length - 1, checkpoints[0]);
+					return;
+				}
 			}
 		} else if (currentButton === "end" || tempCurrentButton === "end") {
 			if (quadGrid[i][j] === end) {
@@ -33,6 +38,14 @@ function handleClick() {
 			} else if (quadGrid[i][j] !== start) {
 				if (end) {
 					removeFromArray(checkpoints, end);
+					end = quadGrid[i][j];
+					quadGrid[i][j].wall = false;
+					checkpoints.push(end);
+					if (firstStart && !startAlgorithm && checkpoints.length > 1) {
+						mouseLocation = quadGrid[i][j];
+						midPointStart(checkpoints.length - 1, checkpoints[checkpoints.length - 2]);
+						return;
+					}
 				}
 				if (checkpoints.includes(quadGrid[i][j])) {
 					removeFromArray(checkpoints, quadGrid[i][j]);
@@ -63,8 +76,8 @@ function handleClick() {
 				removeFromArray(checkpoints, quadGrid[i][j]);
 			} else {
 				checkpoints.push(quadGrid[i][j]);
-				if (firstStart && checkpoints.length >= 3 && !startAlgorithm) {
-					midPointStart(checkpoints.length - 2);
+				if (firstStart && checkpoints.length > 2 && !startAlgorithm) {
+					midPointStart(checkpoints.length - 2, checkpoints[checkpoints.length - 3]);
 					mouseLocation = quadGrid[i][j];
 					return;
 				}
