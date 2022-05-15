@@ -8,16 +8,17 @@ function midPointStart(newStartCount, removeFrom) {
 	startAlgo(newStartCount);
 }
 
-function midPointEnd(newStartCount, removeFromIndex) {
+function midPointEnd(newStartCount, removeFrom) {
 	var removeUntilIndex;
-	if (removeFromIndex !== start) {
-		removeUntilIndex = finalPath.findIndex(elt => elt === checkpoints[removeFromIndex + 1]);
+	if (removeFrom !== start) {
+		removeFrom = finalPath.findIndex(elt => elt === removeFrom);
+		removeUntilIndex = finalPath.findIndex(elt => elt === checkpoints[removeFrom + 1]);
 	} else {
-		removeFromIndex = 0;
+		removeFrom = 0;
 		removeUntilIndex = finalPath.findIndex(elt => elt === checkpoints[0]);
 	}
-	console.log(removeFromIndex, removeUntilIndex - removeFromIndex);
-	finalPath.splice(removeFromIndex, removeUntilIndex - removeFromIndex);
+	console.log(removeFrom, removeUntilIndex - removeFrom);
+	finalPath.splice(removeFrom, removeUntilIndex - removeFrom);
 	countLimit = 1;
-	startAlgo(0, true);
+	startAlgo(newStartCount, true);
 }

@@ -7,10 +7,7 @@ function startAlgo(count, limitValue) {
 			}
 			count = 0;
 		}
-		if (!limitValue) {
-			countLimit = null;
-		}
-		console.log("started");
+		console.log('started');
 		openSet = [];
 		openSet.push(start);
 		closedSet = [];
@@ -20,6 +17,11 @@ function startAlgo(count, limitValue) {
 		initialized = false;
 		removeFromArray(checkpoints, end);
 		checkpoints.push(end);
+		if (!limitValue) {
+			countLimit = checkpoints.length;
+		} else {
+			countLimit = limitValue;
+		}
 		for (var i = 0; i < blockColumns; i++) {
 			for (var j = 0; j < blockRows; j++) {
 				quadGrid[i][j].previous = null;
@@ -42,13 +44,14 @@ function clearBoard() {
 	finalPath = [];
 	counter = 0;
 	limit = null;
-	renderEssentials();
 	for (var i = 0; i < blockColumns; i++) {
 		for (var j = 0; j < blockRows; j++) {
 			quadGrid[i][j].f = 0;
 			quadGrid[i][j].g = 0;
 			quadGrid[i][j].h = 0;
+			quadGrid[i][j].wall = false;
 			quadGrid[i][j].previous = null;
 		}
 	}
+	renderEssentials();
 }

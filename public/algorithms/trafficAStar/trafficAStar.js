@@ -5,7 +5,7 @@ function aStarAlg() {
 	if (openSet.length > 0) {
 		var chosen = 0;
 		for (var i = 0; i < openSet.length; i++) {
-			if (openSet[chosen].h >= openSet[i].h && openSet[chosen].f >= openSet[i].f) {
+			if (openSet[chosen].f >= openSet[i].f) {
 				chosen = i;
 			}
 		}
@@ -18,7 +18,7 @@ function aStarAlg() {
 			initialized = false;
 			counter = counter + 1;
 			if (currentEnd === checkpoints[countLimit - 1]) {
-				console.log("done");
+				console.log('done');
 				startAlgorithm = false;
 				counter = 0;
 				if (countLimit !== checkpoints.length) {
@@ -60,7 +60,7 @@ function aStarAlg() {
 			addPath(current, false);
 		}
 	} else {
-		console.log("no solution");
+		console.log('no solution');
 		startAlgorithm = false;
 		console.log(path);
 		path = [];
@@ -73,11 +73,7 @@ function aStarAlg() {
 }
 
 function initialize() {
-	if (!countLimit) {
-		countLimit = checkpoints.length;
-	}
-	console.log(counter, countLimit);
-	console.log("initialized");
+	console.log('initialized');
 	openSet = [];
 	path = [];
 	closedSet = [];

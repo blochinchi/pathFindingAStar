@@ -26,7 +26,7 @@ function handleClick() {
 				quadGrid[i][j].wall = false;
 				if (firstStart && !startAlgorithm && checkpoints.length > 1) {
 					mouseLocation = quadGrid[i][j];
-					midPointEnd(checkpoints.length - 1, start);
+					midPointEnd(0, start);
 					return;
 				}
 			}
@@ -74,6 +74,11 @@ function handleClick() {
 			}
 			if (checkpoints.includes(quadGrid[i][j])) {
 				removeFromArray(checkpoints, quadGrid[i][j]);
+				if (firstStart && checkpoints.length > 2 && !startAlgorithm) {
+					mouseLocation = quadGrid[i][j];
+					midPointEnd(checkpoints.length - 1, start);
+					return;
+				}
 			} else {
 				checkpoints.push(quadGrid[i][j]);
 				quadGrid[i][j].wall = false;
