@@ -1,5 +1,5 @@
 # pathFindingAStar
-~~https://agile-wave-83644.herokuapp.com/trafficAStar~~ heroku :(  <br>
-https://pathfinder-tfey.onrender.com/trafficAStar render :D <br>
-Takes a few seconds to a minute for the grid (board) to load in since free tier on render is very slow D: <br>
-Build the application locally to load quickly. 
+
+A pathfinding algorithm implementation that uses the A\* and Dijkstra's algorithm. It supports adding of walls and checkpoints along with the start and end nodes. You can also allow diagonal movement \
+Deployed at: https://jashith1.github.io/pathFindingAStar/ \
+I wrote this back when I started high school so don't judge my code too much lol
